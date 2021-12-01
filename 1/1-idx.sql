@@ -1,0 +1,1 @@
+create index lat_bid on linked_account_tokens using btree (business_id);
