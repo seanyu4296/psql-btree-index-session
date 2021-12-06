@@ -41,3 +41,6 @@ insert into linked_account_tokens (
     md5(random()::text),
     'CONFIRMED'
 from generate_series(1, 200000) s(i);
+
+
+select * from linked_account_tokens where business_id = 'test2';

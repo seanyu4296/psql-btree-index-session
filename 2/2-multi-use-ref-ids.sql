@@ -2,10 +2,11 @@ delete from payment;
 -- data setup: create 100,000 business with same ref_id
 begin;
 insert into payment (
-    business_id, reference_id, currency, amount, enable_otp, description, callback_url, status
+    business_id, reference_id, ref_id_int, currency, amount, enable_otp, description, callback_url, status
 ) select
     md5(random()::text),
     'same-ref-id',
+    random() * 100,
     'PHP',
     1000,
     true,
@@ -15,10 +16,11 @@ insert into payment (
 from generate_series(1, 200000) s(i);
 
 insert into payment (
-    business_id, reference_id, currency, amount, enable_otp, description, callback_url, status
+    business_id, reference_id, ref_id_int, currency, amount, enable_otp, description, callback_url, status
 ) select
     uuid_generate_v4(),
     'same-ref-id-2',
+    random() * 100,
     'PHP',
     1000,
     true,
@@ -28,10 +30,11 @@ insert into payment (
 from generate_series(1, 200000) s(i);
 
 insert into payment (
-    business_id, reference_id, currency, amount, enable_otp, description, callback_url, status
+    business_id, reference_id, ref_id_int, currency, amount, enable_otp, description, callback_url, status
 ) select
     uuid_generate_v4(),
     'same-ref-id',
+    random() * 100,
     'PHP',
     1000,
     true,
@@ -41,10 +44,11 @@ insert into payment (
 from generate_series(1, 200000) s(i);
 
 insert into payment (
-    business_id, reference_id, currency, amount, enable_otp, description, callback_url, status
+    business_id, reference_id, ref_id_int, currency, amount, enable_otp, description, callback_url, status
 ) select
     uuid_generate_v4(),
     'same-ref-id-2',
+    random() * 100,
     'PHP',
     1000,
     true,
@@ -103,4 +107,8 @@ order by
     t.relname,
     i.relname;
 
+
+create index p_ref_id_b_id on payment using btree (reference_id, business_id);
+
+create index p_b_id_ref_id on payment using btree (business_id, reference_id);
 --

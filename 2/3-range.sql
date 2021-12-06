@@ -1,6 +1,11 @@
 ALTER TABLE payment
 ADD COLUMN ref_id_int int;
 
+-- LET's say we have
+--  ref_id that are int randomly
+-- by GORIO business
+-- WE WANT TO GET a RANGE of it
+-- from 10 to 20 per se
 insert into payment (
     business_id, reference_id, ref_id_int, currency, amount, enable_otp, description, callback_url, status
 ) select
@@ -26,7 +31,7 @@ insert into payment (
     'test description description',
     'http://google.com',
     'FAILED'
-from generate_series(1, 400000) s(i);
+from generate_series(1, 500000) s(i);
 
 
 explain analyze select * from payment where business_id = 'gorio-business-id' and ref_id_int > 10 and ref_id_int < 15;

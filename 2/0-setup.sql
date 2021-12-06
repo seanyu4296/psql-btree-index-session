@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS "payment" (
     "id" VARCHAR(255) PRIMARY KEY NOT NULL DEFAULT (concat('ddpayment-', uuid_generate_v4())),
     "business_id" VARCHAR(255) NOT NULL,
     "reference_id" VARCHAR(255) NOT NULL,
+    "ref_id_int" int,
     "currency" VARCHAR(50) NOT NULL,
     "amount" DECIMAL(16,4),
     "enable_otp" bool,
@@ -18,10 +19,11 @@ CREATE TABLE IF NOT EXISTS "payment" (
 
 -- data setup: random data business_id and ref_id
 insert into payment (
-    business_id, reference_id, currency, amount, enable_otp, description, callback_url, status
+    business_id, reference_id, ref_id_int, currency, amount, enable_otp, description, callback_url, status
 ) select
     uuid_generate_v4(),
     uuid_generate_v4(),
+    random() * 100,
     'PHP',
     1000,
     true,
@@ -31,10 +33,11 @@ insert into payment (
 from generate_series(1, 500000) s(i);
 
 insert into payment (
-  business_id, reference_id, currency, amount, enable_otp, description, callback_url, status
+  business_id, reference_id, ref_id_int, currency, amount, enable_otp, description, callback_url, status
 ) select
     'obvious-business-id',
     'obvious-reference-id',
+    random() * 100,
     'PHP',
     1000,
     true,
