@@ -14,7 +14,7 @@ insert into linked_account_tokens (
 select
     md5(random()::text),
     md5(random()::text),
-    'CONFIRMED'
+    'AUTHORIZED'
 from generate_series(1, 1000) s(i);
 
 

@@ -10,7 +10,7 @@ explain analyze select id, status from linked_account_tokens where status = 'ACC
 SELECT    CONCAT(n.nspname,'.', c.relname) AS table,
           i.relname AS index_name, pg_size_pretty(pg_relation_size(x.indrelid)) AS table_size,
           pg_size_pretty(pg_relation_size(x.indexrelid)) AS index_size,
-          pg_size_pretty(pg_total_relation_size(x.indrelid)) AS total_size FROM pg_class c 
+          pg_size_pretty(pg_total_relation_size(x.indrelid)) AS total_size FROM pg_class c
 JOIN      pg_index x ON c.oid = x.indrelid
 JOIN      pg_class i ON i.oid = x.indexrelid
 LEFT JOIN pg_namespace n ON n.oid = c.relnamespace

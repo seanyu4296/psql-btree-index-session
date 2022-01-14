@@ -31,10 +31,10 @@ insert into payment (
     'test description description',
     'http://google.com',
     'FAILED'
-from generate_series(1, 500000) s(i);
+from generate_series(1, 1000000) s(i);
 
 
-explain analyze select * from payment where business_id = 'gorio-business-id' and ref_id_int > 10 and ref_id_int < 15;
+explain analyze select business_id from payment where business_id = 'gorio-business-id' and ref_id_int > 10 and ref_id_int < 30;
 
 create index p_b_id_ref_id_int on payment (business_id, ref_id_int);
 create index p_ref_id_int_b_id on payment (ref_id_int, business_id);
